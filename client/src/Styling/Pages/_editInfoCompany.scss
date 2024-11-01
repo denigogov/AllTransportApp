@@ -1,0 +1,11 @@
+@use "../GlobalStyling/mixin";
+@use "../GlobalStyling/colors";
+
+// TWO MAIN CONTAINERS FROM COMPANY INFO FOLDER!
+.editInfoCompany,
+.editBankCompany {
+  @include mixin.overflowScroll();
+  height: 100%;
+  width: 100%;
+  display: grid;
+}

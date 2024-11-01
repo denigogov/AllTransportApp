@@ -1,0 +1,107 @@
+@use "../GlobalStyling/colors";
+@use "../GlobalStyling/general";
+@use "../GlobalStyling/mixin";
+
+.errorMessage {
+  font-size: 0.75em;
+  color: colors.$error;
+}
+
+// Remove the PromptAlert outline border !
+.swal2-popup .swal2-styled:focus {
+  box-shadow: none !important;
+}
+
+// buttons Start
+.action__button-global {
+  @include mixin.gradientBackground--btn-action(
+    rgba(198, 205, 119, 0),
+    rgba(86, 85, 85, 0.182),
+    rgba(196, 196, 196, 0.312),
+    rgba(86, 85, 85, 0.601)
+  );
+  color: white;
+}
+
+// Only avaiable on White Background
+.button__edit {
+  @include mixin.button;
+}
+
+.button__delete {
+  @include mixin.buttonDelete("../../assets/deleteIcon.svg");
+}
+
+.button__downloadPDF {
+  @include mixin.buttonDelete(
+    "../../assets/downloadPDF.svg",
+    12px 25px,
+    #000000,
+    rgba(0, 55, 255, 0.04),
+    rgba(0, 55, 255, 0.07)
+  );
+}
+
+.button__table {
+  @include mixin.button;
+  letter-spacing: general.$spacing;
+  background: colors.$font-Primary;
+  padding: 7px 20px;
+}
+// buttons end
+
+.tableWithPadding {
+  @include mixin.table(18px, 1.7rem);
+}
+
+.table {
+  @include mixin.table();
+}
+
+// Input fileds
+.inputFiledBold {
+  font-weight: 600;
+}
+
+.width600 {
+  max-width: 70vw;
+  margin: 0 auto;
+
+  @media (max-width: general.$lg) {
+    max-width: 75vw;
+  }
+
+  @media (max-width: general.$md) {
+    max-width: none;
+  }
+}
+
+.width500 {
+  max-width: 40vw;
+  margin: 0 auto;
+
+  @media (max-width: general.$lg) {
+    max-width: 55vw;
+  }
+
+  @media (max-width: general.$md) {
+    max-width: none;
+  }
+}
+
+.widthXS {
+  width: 240px;
+  margin: 0 auto;
+}
+
+.NoteMessage {
+  // color: colors.$font-Title;
+  font-size: 0.7rem;
+  text-align: center;
+  color: #856404;
+  padding: 10px;
+  border-top: 1px solid #ffeeba;
+  font-family: Arial, sans-serif;
+}
+
+//////////////////////////////////////////////////////////////////test

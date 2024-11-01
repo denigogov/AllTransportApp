@@ -1,0 +1,84 @@
+@use "../../GlobalStyling/colors";
+@use "../../GlobalStyling/general";
+
+.cards {
+  padding: 1rem;
+  width: 230px;
+  height: 140px;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  // align-items: center;
+
+  color: colors.$font-Title;
+  position: relative;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #000a39;
+    color: #ffffff;
+  }
+
+  @media (max-width: general.$md) {
+    width: 90%;
+  }
+
+  &__totalInovices {
+    position: absolute;
+    top: 19px;
+    right: 20px;
+    // color: #8d9ff8;
+    font-size: 0.7rem;
+  }
+  &__title {
+    border-bottom: 1px solid rgb(221, 221, 221);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  &__value {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &__subTitle {
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
+}
+//   status colors:
+$dashboardCardsColors: (
+  "0": (
+    color: #ce0015,
+    background: #f7f4f4,
+  ),
+  "1": (
+    color: #494848,
+    background: #fafbfb,
+  ),
+  "2": (
+    color: #204c21,
+    background: #edfaf1,
+  ),
+  "3": (
+    color: #006caf,
+    background: #f5fbff,
+  ),
+  "4": (
+    color: #ce0015,
+    background: #f7f4f4,
+  ),
+  "5": (
+    color: #4f00c5,
+    background: #f9f4ff9c,
+  ),
+);
+
+@each $key, $val in $dashboardCardsColors {
+  .card-#{$key} {
+    color: map-get($val, color);
+    background: map-get($val, background);
+  }
+}

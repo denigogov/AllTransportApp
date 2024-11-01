@@ -1,0 +1,47 @@
+@use "../../GlobalStyling/general";
+@use "../../GlobalStyling/mixin";
+@use "../../GlobalStyling/colors";
+.allInvoices {
+  margin: 4rem 0;
+
+  .activePage {
+    background-color: #ffffff;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+
+    button,
+    span {
+      padding: 0.5rem 0.7rem;
+      background-color: transparent;
+      color: colors.$font-Title;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s linear;
+      border-radius: 0.5rem;
+
+      &:hover {
+        background-color: #ffffff;
+      }
+    }
+  }
+}
+
+.span-td {
+  padding: 4px 1rem;
+  border-radius: 0.4rem;
+}
+
+@each $statusName, $colorCode in colors.$tableStatusColor {
+  .status-#{$statusName} {
+    color: map-get($colorCode, color);
+    background: map-get($colorCode, background);
+  }
+}

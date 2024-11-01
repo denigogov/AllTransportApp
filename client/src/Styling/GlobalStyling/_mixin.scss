@@ -1,0 +1,323 @@
+@use "../GlobalStyling/colors";
+@use "../GlobalStyling/general";
+
+//button is connected to the gradient button don't delete
+@mixin button() {
+  padding: 15px 50px;
+  border-radius: 25px;
+  color: white;
+  background: colors.$button;
+  border: none;
+  outline: none;
+  transition: general.$transition;
+  cursor: pointer;
+  &:hover {
+    background: colors.$button-dark;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@mixin buttonDelete(
+  $icon,
+  $padding: 12px 25px,
+  $textColor: colors.$error,
+  $backgroundColor: rgba(255, 0, 0, 0.07),
+  $backgroundColor-hover: rgba(255, 0, 0, 0.14)
+) {
+  background: url($icon);
+  padding: $padding;
+  border-radius: 5px;
+  color: $textColor;
+  background-color: $backgroundColor;
+  border: none;
+  outline: none;
+  transition: general.$transition;
+  font-weight: 600;
+  cursor: pointer;
+
+  //icon proprerty
+  padding-left: 36px;
+  background-repeat: no-repeat;
+  background-position: left 5px top 6.5px;
+
+  background-size: 25px;
+  &:hover {
+    background-color: $backgroundColor-hover;
+    box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@mixin gradientBackground--btn-action(
+  $background1: colors.$actionBtn__background--1,
+  $background2: colors.$actionBtn__background--2,
+  $background-hover-1: colors.$actionBtn__background--hover-1,
+  $background-hover-2: colors.$actionBtn__background--hover-2
+) {
+  color: colors.$background-secondary;
+  @include button;
+
+  background-image: repeating-linear-gradient(
+      135deg,
+      rgba(68, 68, 68, 0.07) 0px,
+      rgba(68, 68, 68, 0.07) 2px,
+      transparent 2px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(68, 68, 68, 0.07) 0px,
+      rgba(68, 68, 68, 0.07) 2px,
+      transparent 2px,
+      transparent 4px
+    ),
+    linear-gradient(90deg, #{$background1}, #{$background2});
+
+  &:hover {
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(68, 68, 68, 0.07) 0px,
+        rgba(68, 68, 68, 0.07) 2px,
+        transparent 2px,
+        transparent 4px
+      ),
+      repeating-linear-gradient(
+        45deg,
+        rgba(68, 68, 68, 0.07) 0px,
+        rgba(68, 68, 68, 0.07) 2px,
+        transparent 2px,
+        transparent 4px
+      ),
+      linear-gradient(90deg, #{$background-hover-1}, #{$background-hover-2});
+  }
+}
+
+@mixin inputUpdateValue {
+  padding: 0.5rem 1rem;
+  border: 1px solid colors.$border-Primary;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: colors.$font-Secound;
+  background-color: white;
+
+  &:focus {
+    outline: 1px solid colors.$border-Primary-Dark;
+  }
+}
+
+@mixin inputLogin {
+  border: 1px solid colors.$border-Primary;
+  border-radius: 10px;
+  background-size: 1.5rem;
+  background-position: right 10px top 11px;
+  padding: 13px 40px;
+
+  &:focus {
+    outline: 1px solid colors.$border-Primary-Dark;
+  }
+}
+
+@mixin input {
+  text-align: center;
+  padding: 13px;
+  border-radius: 25px;
+  border: 1px solid colors.$border-Primary;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:focus {
+    outline: 1px solid colors.$border-Primary;
+  }
+}
+
+@mixin inputFiledsAddIcon() {
+  // To be able to use I need to combine with mixin input ! ... I did that because maybe in the future I will add different styling to the btn
+  // add image before this mixing in the component background:url('')
+  text-align: center;
+  padding-left: 26px;
+  background-repeat: no-repeat;
+  background-position: left 5px top 8px;
+
+  background-size: 25px;
+  background-color: #fff;
+}
+
+//   @mixin buttonHover($btnHoverColor: colors.$primary-darker) {
+//     background-color: $btnHoverColor;
+//   }
+
+@mixin table($tdpadding: 16px, $iconSize: 24px) {
+  table {
+    background-color: #fff;
+    width: 100%;
+    // height: 400px; /* heigh of the table */
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
+
+    th {
+      background-color: colors.$background-secondary;
+    }
+    th,
+    td {
+      position: relative;
+      padding: $tdpadding;
+      text-align: center;
+      border-bottom: 1px solid colors.$border-Primary;
+
+      img {
+        display: block;
+        margin: 0 auto;
+        width: $iconSize;
+        cursor: pointer;
+      }
+    }
+
+    tr:hover {
+      transition: general.$transition;
+      background-color: colors.$background-secondary;
+    }
+  }
+  @media (max-width: general.$md) {
+    tr {
+      border: 1px solid colors.$border-Primary;
+      display: block;
+      margin: 1rem;
+
+      td {
+        padding: 10px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        color: colors.$font-Title;
+        font-weight: 300;
+
+        //In case something went wrong this will work !
+        // grid-template-columns: 10ch auto;
+        // justify-content: space-between;
+
+        &::before {
+          color: colors.$font-Title;
+          content: attr(data-cell) ": ";
+          font-weight: 500;
+          text-align: start;
+        }
+      }
+    }
+
+    th {
+      display: none;
+    }
+  }
+}
+
+@mixin overflowScroll() {
+  // height: calc(100vh - 6rem); // also need to adjust the screen size ! viewport
+  overflow-y: auto;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: colors.$font-Primary;
+  }
+}
+
+@mixin tooltip(
+  $text: "HoverText",
+  $top: null,
+  $left: null,
+  $right: null,
+  $bottom: null,
+  $topArrow: null,
+  $rightArrow: null,
+  $bottomArrow: null,
+  $leftArrow: null
+) {
+  &:hover::after {
+    content: $text;
+    position: absolute;
+
+    // Conditionaly add proprety
+    @if $top != null {
+      top: $top;
+    }
+
+    @if $left != null {
+      left: $left;
+    }
+
+    @if $right != null {
+      right: $right;
+    }
+    @if $bottom != null {
+      bottom: $bottom;
+    }
+
+    font-size: 12px;
+    background-color: colors.$background-secondary;
+    padding: 10px;
+    width: 5rem;
+    margin-top: 10px;
+    border-radius: 5px;
+    animation: slowlyHoverToolTip 0.7s 1 ease forwards;
+  }
+
+  &:hover::before {
+    content: "";
+    position: absolute;
+    // top: 30px;
+
+    @if $topArrow != null {
+      top: $topArrow;
+    }
+    @if $rightArrow != null {
+      right: $rightArrow;
+    }
+
+    @if $bottomArrow != null {
+      bottom: $bottomArrow;
+    }
+
+    @if $leftArrow != null {
+      left: $leftArrow;
+    }
+
+    width: 20px;
+    height: 20px;
+    background-color: colors.$background-secondary;
+    transform: rotate(45deg);
+    animation: slowlyHoverToolTip 0.7s 1 ease forwards;
+  }
+}
+
+@keyframes slowlyHoverToolTip {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes slowlyHoverToolTip {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin skeletonColorsAnimation {
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}

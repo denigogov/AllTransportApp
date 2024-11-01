@@ -1,0 +1,42 @@
+@use "../GlobalStyling/colors";
+@use "../GlobalStyling/general";
+@use "../GlobalStyling/mixin";
+@use "../GlobalStyling/globalClasses";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: colors.$background;
+  line-height: 1.5;
+  font-family: "Poppins", sans-serif;
+  @include mixin.overflowScroll;
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+a {
+  color: colors.$font-Secound;
+  text-decoration: none;
+}
+
+// SVG COLOR CHANGE!!
+// .vmro {
+//   filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg)
+//     brightness(119%) contrast(119%);
+// }

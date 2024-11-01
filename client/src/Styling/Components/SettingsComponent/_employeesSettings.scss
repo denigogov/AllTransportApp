@@ -1,0 +1,121 @@
+@use "../../GlobalStyling/colors";
+@use "../../GlobalStyling/mixin";
+@use "../../GlobalStyling/general";
+
+// editEmployer Main container
+// .employeesSettings {
+// }
+
+// EDIT USER COMPONENT & EDIT EMPLOYER COMPONENT // popup window container
+.editEmployer {
+  @include mixin.overflowScroll();
+  width: 100%;
+  height: 100%;
+  // using display grid to center  the form in center// only with grid work
+  display: grid;
+}
+
+.employeesSettings {
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.3rem;
+
+    margin: 1.3rem;
+    padding: 0 1.3rem;
+    &-title {
+      color: colors.$font-Title;
+      font-size: 1.3rem;
+    }
+
+    &-route {
+      color: #fff;
+      background-color: colors.$font-sectionTitle;
+      transition: general.$transition;
+      font-size: 0.87rem;
+      border-radius: 0.3rem;
+      padding: 0.5rem 1rem;
+      text-align: center;
+
+      cursor: pointer;
+      border: none;
+      outline: none;
+      p {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+
+        span {
+          font-size: 1.4rem;
+        }
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+//
+
+//
+
+//
+
+// Create Employer Components Styling
+.createEmployer__container {
+  @include mixin.overflowScroll;
+  height: 100%;
+  width: 100%;
+  padding: 2rem 0;
+  background-image: colors.$bakcgroundGradient-primary;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: general.$lg) {
+    align-items: none;
+  }
+
+  &__form {
+    border: 1px solid colors.$border-Primary;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+    padding: 2rem 1rem;
+    gap: 2rem;
+
+    @media (max-width: general.$sm) {
+      border: none;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+      @include mixin.inputUpdateValue;
+    }
+
+    input[type="checkbox"] {
+      accent-color: #c00000;
+    }
+
+    label {
+      color: colors.$font-Primary;
+    }
+  }
+  .formErrors {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+}

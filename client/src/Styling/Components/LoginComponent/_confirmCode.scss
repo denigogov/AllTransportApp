@@ -1,0 +1,101 @@
+@use "../../GlobalStyling/general";
+@use "../../GlobalStyling/colors";
+@use "../../GlobalStyling/mixin";
+
+.confirmCode {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  &__image,
+  &__text {
+    flex: 1;
+  }
+
+  &__text {
+    &-header {
+      font-size: 1.6rem;
+      color: colors.$font-Primary;
+    }
+
+    &-subTitle {
+      font-size: 17px;
+      color: colors.$font-Secound;
+    }
+
+    form {
+      input {
+        @include mixin.inputLogin;
+        letter-spacing: 15px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      button {
+        @include mixin.gradientBackground--btn-action(
+          rgba(198, 205, 119, 0),
+          rgba(86, 85, 85, 0.182),
+          rgba(196, 196, 196, 0.312),
+          rgba(86, 85, 85, 0.601)
+        );
+        color: white;
+        padding: 12px 2rem;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+.resendCode {
+  font-size: 12px;
+  color: colors.$font-Secound;
+  cursor: pointer;
+  display: inline;
+  transition: general.$transition;
+
+  &:hover {
+    color: colors.$font-sectionTitle;
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+@media (max-width: general.$sm) {
+  .confirmCode {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &__image,
+    &__text {
+      flex: 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+
+      button {
+        @include mixin.gradientBackground--btn-action(
+          rgba(198, 205, 119, 0),
+          rgba(86, 85, 85, 0.182),
+          rgba(196, 196, 196, 0.312),
+          rgba(86, 85, 85, 0.601)
+        );
+        color: white;
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+@use "../../GlobalStyling/colors";
+@use "../../GlobalStyling/mixin";
+
+.invoiceStep1 {
+  &__details {
+    display: grid;
+    grid-template-columns: repeat(1fr 2);
+    gap: 1rem;
+    font-size: 0.8rem;
+    padding: 0.7rem;
+    text-align: start;
+
+    span {
+      color: colors.$font-Primary;
+      font-weight: 600;
+    }
+    p {
+      &:nth-child(odd) {
+        grid-column: 1;
+      }
+      &:nth-child(even) {
+        grid-column: 2;
+      }
+    }
+  }
+}
+// STEP 2 STYLING !!
+.step2Search {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  p {
+    font-size: 12px;
+    cursor: pointer;
+    color: colors.$font-Title;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    text-align: center;
+
+    &:hover {
+      color: #0071e2;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+// STEP 4 STYLING !!
+.invoiceStep4 {
+  display: flex;
+  gap: 1rem;
+  transition: all 0.5s ease;
+  position: relative;
+
+  &__checkbox {
+    position: absolute;
+    bottom: -2rem;
+    left: 10px;
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  &__removeFiled {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    text-align: center;
+    color: colors.$font-Title;
+
+    @include mixin.tooltip(
+      $text: "Remove Filed",
+      $top: 25px,
+      $topArrow: 30px,
+      $rightArrow: 5px
+    );
+
+    // &:hover::after {
+    //   content: "Remove Filed";
+    //   position: absolute;
+    //   top: 25px;
+    //   font-size: 12px;
+    //   background-color: colors.$background-secondary;
+    //   padding: 10px;
+    //   width: 5rem;
+    //   margin-top: 10px;
+    //   border-radius: 5px;
+    //   animation: slowlyHoverToolTip 0.7s 1 ease forwards;
+    // }
+
+    // Arrow to point on the object  !
+    // &:hover::before {
+    //   content: "";
+    //   position: absolute;
+    //   top: 30px;
+    //   right: 5px;
+    //   width: 20px;
+    //   height: 20px;
+    //   background-color: colors.$background-secondary;
+    //   transform: rotate(45deg);
+    // }
+
+    img {
+      width: 1.5rem;
+    }
+  }
+
+  &__addFiled {
+    display: flex;
+    align-items: start;
+    position: relative;
+    text-align: center;
+    color: colors.$font-Title;
+
+    p {
+      transition: all 1s ease;
+
+      @include mixin.tooltip(
+        $text: "Add Filed",
+        $top: 35px,
+        $left: -50px,
+        $topArrow: 36px,
+        $rightArrow: 5px
+      );
+
+      img {
+        width: 35px;
+        cursor: pointer;
+
+        &:active {
+          transform: scale(0.98);
+        }
+      }
+    }
+  }
+}

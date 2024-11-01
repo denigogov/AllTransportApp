@@ -1,0 +1,106 @@
+@use "../../GlobalStyling/general";
+@use "../../GlobalStyling/mixin";
+@use "../../GlobalStyling/colors";
+
+.createInvoice {
+  height: 100%;
+  padding: 2rem 0;
+  // @include mixin.overflowScroll;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: general.$lg) {
+    align-items: none;
+  }
+
+  &__signatureBox {
+    margin: 0 auto;
+    border: 1px solid colors.$border-Primary;
+    width: 300px;
+    height: 200px;
+
+    &-button {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+
+      .signatureConfirm {
+        @include mixin.buttonDelete(
+          "../../../assets/saveIcon.svg",
+          12px 25px,
+          #06c103,
+          rgba(17, 255, 0, 0.04),
+          rgba(43, 255, 0, 0.07)
+        );
+      }
+
+      .saveSignature {
+        @include mixin.buttonDelete(
+          "../../../assets/saveIcon.svg",
+          12px 25px,
+          #000000,
+          rgba(0, 55, 255, 0.04),
+          rgba(0, 55, 255, 0.07)
+        );
+      }
+    }
+  }
+
+  &__form {
+    border: 1px solid colors.$font-Primary;
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    select {
+      @include mixin.inputUpdateValue;
+    }
+
+    input[type="checkbox"] {
+      accent-color: #c00000;
+    }
+
+    label {
+      color: colors.$font-Primary;
+    }
+
+    background-image: colors.$bakcgroundGradient-primary;
+  }
+
+  &__button-wrap {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    text-align: center;
+    padding: 10px;
+
+    button {
+      padding: 10px 35px;
+      border: 1px solid colors.$font-Primary;
+      background-color: colors.$multiForm-progressBar;
+      border-radius: 6px;
+      color: #fff;
+      letter-spacing: 0.1rem;
+      text-transform: capitalize;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #00458a;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
