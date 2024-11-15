@@ -37,7 +37,7 @@ const confirmCode = handleTryCatch(async (req, res) => {
     expiresIn: "3h",
   });
 
-  if (auth === decryptedCode || auth === "guest2FA") {
+  if (auth === decryptedCode || auth === process.env.TEMPORERY_ACCESS_CODE) {
     res.status(200).send({ token });
   } else {
     throw CustomError.unauthorizedError("confirm code error");
@@ -89,30 +89,33 @@ const resendCode = handleTryCatch(async (req, res) => {
   );
 
   if (findEmail.length) {
-    const message = {
-      from: {
-        email: process.env.EMAIL,
-      },
+    // const message = {
+    //   from: {
+    //     email: process.env.EMAIL,
+    //   },
 
-      personalizations: [
-        {
-          to: [
-            {
-              email: findEmail[0].email,
-            },
-          ],
+    //   personalizations: [
+    //     {
+    //       to: [
+    //         {
+    //           email: findEmail[0].email,
+    //         },
+    //       ],
 
-          dynamic_template_data: {
-            confirmCode: `${decodedCode}`,
-          },
-        },
-      ],
-      template_id: process.env.TEMPLATE_ID,
-    };
+    //       dynamic_template_data: {
+    //         confirmCode: `${decodedCode}`,
+    //       },
+    //     },
+    //   ],
+    //   template_id: process.env.TEMPLATE_ID,
+    // };
 
-    sgMail
-      .send(message)
-      .then(() => res.status(200).send({ ok: "code was send" }));
+    // sgMail
+    //   .send(message)
+    //   .then(() => res.status(200).send({ ok: "code was send" }));
+
+    // Temporary solution !
+    res.status(200).send({ ok: "code was send" });
   } else throw CustomError.notFoundError("Invalid User");
 });
 
