@@ -241,7 +241,7 @@ const InvoiceGenerator: React.FC<InvoiceGeneratorTypes> = ({
                 <Text>
                   {language ? "Telefon" : "Phone"}: +49 0152 176 711 07
                 </Text>
-                <Text>email: pako-s-transporte@hotmail.com</Text>
+                <Text>email: info@pako-stransporte.de</Text>
                 <Text>web: www.pako-stransporte.de</Text>
               </View>
             </View>

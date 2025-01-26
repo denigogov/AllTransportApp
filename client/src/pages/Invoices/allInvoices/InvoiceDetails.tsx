@@ -30,6 +30,7 @@ import { confirmUpdatePrompt } from "../../../components/GlobalComponents/update
 const InvoiceDetails: React.FC = () => {
   const [setPopupOpen, pageIndex] = useOutletContext<ContextTypeRouter>();
   const [updateDetails, setUpdateDetails] = useState<boolean>(false);
+  const [language, setLanguage] = useState<string>("DE");
 
   const { token } = useAuth();
   const { invoiceId } = useParams();
@@ -165,7 +166,6 @@ const InvoiceDetails: React.FC = () => {
           </p>
         </div>
       </div>
-
       <div className="invoiceDetails__buyer">
         <InvoiceDetailsBuyer invoiceData={invoiceData} />
       </div>
@@ -186,13 +186,26 @@ const InvoiceDetails: React.FC = () => {
           <button onClick={deleteInvoiceRequest} className="button__delete">
             Delete Invoice
           </button>
-          {/* Button to download pdf document */}
 
+          {/* Button to download pdf document */}
           <InvoicePDFGenerator
             buyerData={invoiceData}
             invoiceDescription={invoiceDescription}
             taxDiscountValues={taxDiscountValues}
+            language={language}
           />
+          <label className="invoiceDetails__actionButton-language">
+            Download Language{" "}
+            <select
+              className="invoiceDetails__actionButton-language"
+              onChange={(e) => setLanguage(e.target?.value)}
+            >
+              <option defaultValue={language} value="DE">
+                German
+              </option>
+              <option value="EN">English</option>
+            </select>
+          </label>
         </div>
       </div>
     </div>

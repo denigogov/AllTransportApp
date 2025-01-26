@@ -22,14 +22,18 @@ interface InvoicePDFGeneratorProps {
   buyerData?: (invoiceJoinDataTypes | undefined)[] | undefined;
   invoiceDescription?: (invoiceDetails | undefined)[] | undefined;
   taxDiscountValues?: TaxDiscountValuesProps;
+  language?: string;
 }
 
 const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
   buyerData,
   invoiceDescription,
   taxDiscountValues,
+  language,
 }) => {
   const { token } = useAuth();
+
+  const defaultLanguage = language === "DE";
 
   Font.register({
     family: "customFontWeight400",
@@ -64,38 +68,47 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
         <View style={styles.pageContainer}>
           <View style={styles.firstPageHalf}>
             <View style={styles.pageTitle}>
-              <Text>INVOICE</Text>
+              <Text>{defaultLanguage ? "RECHNUNG" : "INVOICE"}</Text>
             </View>
 
             {/* Invoice Seller Buyer Data */}
             <View style={styles.sellerBuyerData}>
               {/* seler DATA */}
               <View style={styles.sellerBuyerRowData}>
-                <Text style={styles.sellerBuyerTitle}>SELLER</Text>
+                <Text style={styles.sellerBuyerTitle}>
+                  {defaultLanguage ? "Absender" : "SELLER"}
+                </Text>
                 <View style={styles.gap4px}>
                   <Text>{customerData?.[0]?.companyName ?? "Not Found"}</Text>
                   <Text>{customerData?.[0]?.street ?? ""}</Text>
                   <Text>{`${customerData?.[0]?.zipcode}, ${customerData?.[0]?.city} - ${customerData?.[0]?.country} `}</Text>
                   <Text>
-                    Ust.Ident-Nr: {customerData?.[0]?.idNumber ?? "Not Found"}
+                    {defaultLanguage ? "USt-IdNr" : "Ust.Ident-Nr"}:{" "}
+                    {customerData?.[0]?.idNumber ?? "Not Found"}
                   </Text>
                 </View>
                 <Text style={styles.invoiceNumberDate}>
-                  Invoice number: #{buyerData?.[0]?.invoiceId ?? ""}
+                  {defaultLanguage ? "Rechnungsnummer" : " Invoice number"}: #
+                  {buyerData?.[0]?.invoiceId ?? ""}
                 </Text>
               </View>
 
               {/* Buyer DATA */}
               <View style={styles.sellerBuyerRowData}>
-                <Text style={styles.sellerBuyerTitle}>BILLED TO:</Text>
+                <Text style={styles.sellerBuyerTitle}>
+                  {defaultLanguage ? "Empfänger" : "BILLED TO"}:
+                </Text>
                 <View style={styles.gap4px}>
                   <Text>{buyerData?.[0]?.customerName ?? "Not Found"}</Text>
                   <Text>{buyerData?.[0]?.street ?? ""}</Text>
                   <Text>{`${buyerData?.[0]?.zipcode}, ${buyerData?.[0]?.city} - ${buyerData?.[0]?.country} `}</Text>
-                  <Text>Ust.Ident-Nr: {buyerData?.[0]?.idNumber ?? ""}</Text>
+                  <Text>
+                    {defaultLanguage ? "USt-IdNr" : "Ust.Ident-Nr"}:{" "}
+                    {buyerData?.[0]?.idNumber ?? ""}
+                  </Text>
                 </View>
                 <Text style={styles.invoiceNumberDate}>
-                  Invoice Date:{" "}
+                  {defaultLanguage ? "Rechnungsdatum" : "Invoice Date"}:{" "}
                   {moment(buyerData?.[0]?.currentDate).format("Do MMMM YYYY")}
                 </Text>
               </View>
@@ -107,8 +120,8 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
           <View style={styles.secoundPageHalf}>
             <View style={styles.mainTable}>
               <View style={styles.mainTableTitle}>
-                <Text>DESCRIPTION</Text>
-                <Text>PRICE</Text>
+                <Text>{defaultLanguage ? "Beschreibung" : "DESCRIPTION"}</Text>
+                <Text>{defaultLanguage ? "Gesamtbetrag" : "PRICE"}</Text>
               </View>
 
               {invoiceDescription?.length && (
@@ -124,20 +137,28 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
 
               {taxDiscountValues?.totalDiscount === 0.0 || (
                 <View style={styles.footerTableDiscount}>
-                  <Text>Discount {taxDiscountValues?.discountValue}%</Text>
+                  <Text>
+                    {defaultLanguage ? "Rabatt" : "Discount"}{" "}
+                    {taxDiscountValues?.discountValue}%
+                  </Text>
                   <Text>€ {taxDiscountValues?.totalDiscount}</Text>
                 </View>
               )}
 
               {taxDiscountValues?.totalTax === 0.0 || (
                 <View style={styles.footerTableTax}>
-                  <Text>Tax {taxDiscountValues?.taxValue}%</Text>
+                  <Text>
+                    {" "}
+                    {defaultLanguage ? "zzgl." : "Tax"}{" "}
+                    {taxDiscountValues?.taxValue}%{" "}
+                    {defaultLanguage ? "USt." : ""}
+                  </Text>
                   <Text>€ {taxDiscountValues?.totalTax}</Text>
                 </View>
               )}
 
               <View style={styles.footerTable}>
-                <Text>TOTAL DUE</Text>
+                <Text>{defaultLanguage ? "Rechnungsbetrag" : "TOTAL DUE"}</Text>
                 <Text>
                   € {Number(taxDiscountValues?.totalPrice).toFixed(2)}{" "}
                 </Text>
@@ -153,9 +174,11 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
             {/* Footer */}
             <View style={styles.footerContainer}>
               <View style={styles.gap4px}>
-                <Text style={styles.fontBold}>Bank Data</Text>
+                <Text style={styles.fontBold}>
+                  {defaultLanguage ? "Bankdaten" : "Bank Data"}
+                </Text>
                 <Text>
-                  Bank Name:{" "}
+                  {defaultLanguage ? "Bankname" : "Bank Name"}:{" "}
                   <Text style={styles.fontBold}>
                     {customerData?.[0]?.bankName}
                   </Text>
@@ -173,8 +196,11 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
                 </Text>
               </View>
               <View style={styles.gap4px}>
-                <Text>Phone: +49 0152 222 222 22</Text>
-                <Text>email: comapny@gmail.com</Text>
+                <Text>
+                  {defaultLanguage ? "Telefon" : "Phone"}: +49 0152 176 711 07
+                </Text>
+                <Text>email: info@pako-stransporte.de</Text>
+                <Text>web: www.pako-stransporte.de</Text>
               </View>
             </View>
           </View>
@@ -186,7 +212,9 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
   return (
     <PDFDownloadLink
       document={PDFGenerator}
-      fileName={`Invoice Copy #${buyerData?.[0]?.invoiceId ?? ""}.pdf`}
+      fileName={`Invoice Copy #${
+        buyerData?.[0]?.invoiceId ?? ""
+      }_${language}.pdf`}
     >
       {({ loading, error }) =>
         loading ? (
