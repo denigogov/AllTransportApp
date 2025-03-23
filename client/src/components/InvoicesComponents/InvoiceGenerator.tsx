@@ -22,6 +22,7 @@ import { generateInvoiceNumber } from "../../helpers/InvoiceID";
 import customFontWeight400 from "../../Styling/Components/InvoiceComponentStyle/Quicksand-Light.ttf";
 import customFontWeight500 from "../../Styling/Components/InvoiceComponentStyle/Quicksand-Medium.ttf";
 import customFontWeight700 from "../../Styling/Components/InvoiceComponentStyle/Quicksand-Bold.ttf";
+import companyLogo from "../../assets/pakoSLogo.png";
 
 // PDF STYLING CSS
 import { styles } from "../../Styling/Components/InvoiceComponentStyle/invoiceStyle";
@@ -87,7 +88,10 @@ const InvoiceGenerator: React.FC<InvoiceGeneratorTypes> = ({
         <View style={styles.pageContainer}>
           <View style={styles.firstPageHalf}>
             <View style={styles.pageTitle}>
-              <Text>{language ? "RECHNUNG" : "INVOICE"}</Text>
+              <Text style={styles.pageTitleText}>
+                {language ? "RECHNUNG" : "INVOICE"}
+              </Text>
+              <Image style={styles.logo} src={companyLogo} />
             </View>
 
             {/* Invoice Seller Buyer Data */}

@@ -1,7 +1,7 @@
 import useSWR, { mutate } from "swr";
 import { useAuth } from "../../../helpers/useAuth";
 import { CompanyInfoTypes } from "../../../types/companyInfoTypes";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { updateCompanyInfo } from "../../../api/companyInfoAPI";
 import {
   confirmUpdatePrompt,
@@ -15,8 +15,9 @@ import ErrorMinimalDisplay from "../../../components/GlobalComponents/ErrorMinim
 
 const EditInfoCompany: React.FC = () => {
   const { token } = useAuth();
-
   const navigate = useNavigate();
+
+  const { id } = useParams();
 
   const setPopupOpen =
     useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
@@ -27,6 +28,10 @@ const EditInfoCompany: React.FC = () => {
     isLoading: companyDataLoading,
   } = useSWR<CompanyInfoTypes[]>(["companyData", token]);
 
+  const selectedCompany =
+    companyData?.find((company) => company?.id === Number(id)) ??
+    companyData?.[0];
+
   const handleUpdate = async (query: Partial<CompanyInfoTypes>) => {
     try {
       const confirmUpdateMessage = await confirmUpdatePrompt(
@@ -36,11 +41,8 @@ const EditInfoCompany: React.FC = () => {
       );
 
       if (confirmUpdateMessage.isConfirmed) {
-        await updateCompanyInfo(
-          companyData?.[0].id ?? null,
-          token ?? "",
-          query
-        );
+        await updateCompanyInfo(Number(id) ?? null, token ?? "", query);
+
         mutate(["companyData", token]);
         updateActionPrompt("Great!", "Your Updates has been saved.");
         setPopupOpen((e) => !e);
@@ -51,7 +53,7 @@ const EditInfoCompany: React.FC = () => {
     }
   };
 
-  const formInput = companyInfoInputForm(companyData ?? []);
+  const formInput = companyInfoInputForm(selectedCompany);
 
   if (companyDataError)
     return <ErrorMinimalDisplay errorMessage={companyDataError?.message} />;

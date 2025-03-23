@@ -183,8 +183,8 @@ const RootRouter = () => {
           >
             <Route index element={<CompanyProfile />} />
             <Route path="company-profile" element={<CompanyProfile />}>
-              <Route path="edit-info" element={<EditInfoCompany />} />
-              <Route path="edit-bank" element={<EditBankCompany />} />
+              <Route path="edit-info/:id" element={<EditInfoCompany />} />
+              <Route path="edit-bank/:id" element={<EditBankCompany />} />
             </Route>
             <Route path="user-profile" element={<UserProfile />}>
               <Route path="edit/:id" element={<EditUserProfile />} />

@@ -57,6 +57,7 @@ export type invoiceDetails = {
 export type invoiceJoinDataTypes = {
   invoiceId: string;
   currentDate: string;
+  date: string;
   totalPrice: string;
   statusName: string;
   customerName: string;

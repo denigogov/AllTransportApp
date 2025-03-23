@@ -45,7 +45,7 @@ const EditEmployer: React.FC<EditEmployerProps> = () => {
   if (allDepartmentsDataLoading) return <p>loading</p>;
 
   const userData = allUserData?.filter(
-    (user) => user?.userId === Number(id) ?? 0
+    (user) => user?.userId === Number(id ?? 0)
   );
 
   if (allUserDataError || allDepartmentsDataError)

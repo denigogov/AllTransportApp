@@ -13,8 +13,8 @@ export interface DetailItem {
 
 const CompanyProfile: React.FC = () => {
   const [popUpOpen, setPopupOpen] = useState<boolean>(false);
+  const [companyID, setCompanyID] = useState<number | null>(null);
   const navigator = useNavigate();
-
   const location = useLocation();
 
   const popupWindow = () => {
@@ -30,27 +30,49 @@ const CompanyProfile: React.FC = () => {
   } = useSWR<CompanyInfoTypes[]>(["companyData", token], () =>
     fetchCompanyInfo(token ?? "")
   );
-  const companyDetails: DetailItem[] = companyData
+
+  // currently selected company based on the ID
+  const selectedCompany =
+    companyData?.find((company) => company.id === companyID) ??
+    companyData?.[0];
+
+  if (!companyID && companyData?.length) {
+    setCompanyID(companyData[0].id);
+  }
+
+  const companyDetails: DetailItem[] = selectedCompany
     ? [
-        { label: "Company Name", value: companyData[0]?.companyName ?? "N/A" },
-        { label: "Street", value: companyData[0]?.street ?? "N/A" },
-        { label: "City", value: companyData[0]?.city ?? "N/A" },
-        { label: "ZipCode", value: companyData[0]?.zipcode ?? "N/A" },
-        { label: "Country", value: companyData[0]?.country ?? "N/A" },
-        { label: "ID Number", value: companyData[0]?.idNumber ?? "N/A" },
+        { label: "Company Name", value: selectedCompany.companyName ?? "N/A" },
+        { label: "Street", value: selectedCompany.street ?? "N/A" },
+        { label: "City", value: selectedCompany.city ?? "N/A" },
+        { label: "ZipCode", value: selectedCompany.zipcode ?? "N/A" },
+        { label: "Country", value: selectedCompany.country ?? "N/A" },
+        { label: "ID Number", value: selectedCompany.idNumber ?? "N/A" },
       ]
     : [];
 
-  const bankDetails: DetailItem[] = companyData
+  const bankDetails: DetailItem[] = selectedCompany
     ? [
-        { label: "Bank Name", value: companyData[0]?.bankName ?? "N/A" },
-        { label: "IBAN", value: companyData[0]?.iban ?? "N/A" },
-        { label: "BIC", value: companyData[0]?.bic ?? "N/A" },
+        { label: "Bank Name", value: selectedCompany.bankName ?? "N/A" },
+        { label: "IBAN", value: selectedCompany.iban ?? "N/A" },
+        { label: "BIC", value: selectedCompany.bic ?? "N/A" },
       ]
     : [];
 
   return (
     <div>
+      <select
+        onChange={(e) => setCompanyID(Number(e.target.value))}
+        value={companyID ?? ""}
+        className="companySelect"
+      >
+        {companyData?.map((company) => (
+          <option key={company.id} value={company.id}>
+            {company.companyName}
+          </option>
+        ))}
+      </select>
+
       <CompanyDetails
         companyDataError={companyDataError}
         companyDataLoading={companyDataLoading}
@@ -58,8 +80,8 @@ const CompanyProfile: React.FC = () => {
         title="Company Details"
         navigateTo={`${
           location.pathname === "/settings"
-            ? "company-profile/edit-info"
-            : "edit-info"
+            ? `company-profile/edit-info/${companyID}`
+            : `edit-info/${companyID}`
         }`}
         setPopupOpen={setPopupOpen}
       />
@@ -70,8 +92,8 @@ const CompanyProfile: React.FC = () => {
         title="Bank Details"
         navigateTo={`${
           location.pathname === "/settings"
-            ? "company-profile/edit-bank"
-            : "edit-bank"
+            ? `company-profile/edit-bank/${companyID}`
+            : `edit-bank/${companyID}`
         }`}
         setPopupOpen={setPopupOpen}
       />

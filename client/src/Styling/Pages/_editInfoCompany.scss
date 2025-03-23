@@ -9,3 +9,12 @@
   width: 100%;
   display: grid;
 }
+
+.companySelect {
+  margin-left: 40px;
+
+  padding: 10px 20px;
+  border-color: #cdc9c9;
+
+  @include mixin.inputUpdateValue;
+}

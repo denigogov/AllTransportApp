@@ -285,7 +285,7 @@ const selectInvoiceById = handleTryCatch(async (req, res) => {
   const { id } = req.params;
 
   const [findInvoice] = await database.query(
-    `SELECT  invoiceId,currentDate,totalPrice ,statusName,customerName,country,city,street,zipcode,idNumber,tax,discount FROM ${process.env.DB_NAME}.invoice
+    `SELECT  invoiceId,currentDate, date, totalPrice ,statusName,customerName,country,city,street,zipcode,idNumber,tax,discount FROM ${process.env.DB_NAME}.invoice
     left join invoicestatus on invoice.statusId = invoicestatus.id
     left join customercompany on invoice.customercompanyId = customercompany.id
     where invoiceId = ? `,

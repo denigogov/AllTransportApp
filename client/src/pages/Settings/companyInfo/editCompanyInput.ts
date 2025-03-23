@@ -2,7 +2,7 @@ import { DefaultInputValuesTypes } from "../../../types/InputTypes";
 import { CompanyInfoTypes } from "../../../types/companyInfoTypes";
 
 export function companyBankInput(
-  companyData?: CompanyInfoTypes[]
+  companyData?: CompanyInfoTypes
 ): DefaultInputValuesTypes[] {
   const formInputs: DefaultInputValuesTypes[] = [
     {
@@ -14,7 +14,7 @@ export function companyBankInput(
       maxLength: 20,
       minLengthMessage: "Bank Name should be min 3 letters",
       maxLengthMessage: "Bank Name should be max 20 letters",
-      defaultValue: companyData?.[0].bankName ?? "No Bank Found",
+      defaultValue: companyData?.bankName ?? "No Bank Found",
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ export function companyBankInput(
       maxLength: 40,
       minLengthMessage: "IBAN should be min 15 letters",
       maxLengthMessage: "IBAN should be max 40 letters",
-      defaultValue: companyData?.[0].iban ?? "No IBAN found",
+      defaultValue: companyData?.iban ?? "No IBAN found",
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ export function companyBankInput(
       maxLength: 11,
       minLengthMessage: "BIC should be min 8 letters",
       maxLengthMessage: "BIC should be max 11 letters",
-      defaultValue: companyData?.[0].bic ?? "No BIC found",
+      defaultValue: companyData?.bic ?? "No BIC found",
     },
   ];
 
@@ -44,7 +44,7 @@ export function companyBankInput(
 }
 
 export function companyInfoInputForm(
-  companyData: CompanyInfoTypes[]
+  companyData?: CompanyInfoTypes
 ): DefaultInputValuesTypes[] {
   const formInputs: DefaultInputValuesTypes[] = [
     {
@@ -56,7 +56,7 @@ export function companyInfoInputForm(
       maxLength: 40,
       minLengthMessage: "Company Name should be min 3 letters",
       maxLengthMessage: "Company Name should be max 40 letters",
-      defaultValue: companyData?.[0].companyName ?? "No Company Name Found",
+      defaultValue: companyData?.companyName ?? "No Company Name Found",
     },
     {
       id: 2,
@@ -67,7 +67,7 @@ export function companyInfoInputForm(
       maxLength: 60,
       minLengthMessage: "Street should be min 3 letters",
       maxLengthMessage: "Street should be max 60 letters",
-      defaultValue: companyData?.[0].street ?? "No Street found",
+      defaultValue: companyData?.street ?? "No Street found",
     },
     {
       id: 3,
@@ -78,7 +78,7 @@ export function companyInfoInputForm(
       maxLength: 20,
       minLengthMessage: "City should be min 3 letters",
       maxLengthMessage: "City should be max 20 letters",
-      defaultValue: companyData?.[0].city ?? "No City found",
+      defaultValue: companyData?.city ?? "No City found",
     },
     {
       id: 4,
@@ -89,7 +89,7 @@ export function companyInfoInputForm(
       maxLength: 10,
       minLengthMessage: "ZipCode should be min 4 letters",
       maxLengthMessage: "ZipCode should be max 10 letters",
-      defaultValue: companyData?.[0].zipcode ?? "No ZipCode found",
+      defaultValue: companyData?.zipcode ?? "No ZipCode found",
     },
     {
       id: 5,
@@ -100,7 +100,7 @@ export function companyInfoInputForm(
       maxLength: 15,
       minLengthMessage: "Country should be min 3 letters",
       maxLengthMessage: "Country should be max 15 letters",
-      defaultValue: companyData?.[0].country ?? "No Country found",
+      defaultValue: companyData?.country ?? "No Country found",
     },
     {
       id: 6,
@@ -111,7 +111,7 @@ export function companyInfoInputForm(
       maxLength: 20,
       minLengthMessage: "ID Number should be min 4 letters",
       maxLengthMessage: "ID Number should be max 20 letters",
-      defaultValue: companyData?.[0].idNumber ?? "No ID Number found",
+      defaultValue: companyData?.idNumber ?? "No ID Number found",
     },
   ];
 
