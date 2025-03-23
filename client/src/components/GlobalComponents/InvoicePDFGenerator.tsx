@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Font,
+  Image,
   PDFDownloadLink,
 } from "@react-pdf/renderer";
 import { styles } from "../../Styling/Components/InvoiceComponentStyle/invoiceStyle";
@@ -17,6 +18,7 @@ import useSWR from "swr";
 import ErrorMinimalDisplay from "./ErrorMinimalDisplay";
 import LoadingRing from "./LoadingRing";
 import { TaxDiscountValuesProps } from "../../pages/Invoices/createInvoice/CreateInvoice";
+import companyLogo from "../../assets/pakoSLogo.png";
 
 interface InvoicePDFGeneratorProps {
   buyerData?: (invoiceJoinDataTypes | undefined)[] | undefined;
@@ -68,7 +70,10 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
         <View style={styles.pageContainer}>
           <View style={styles.firstPageHalf}>
             <View style={styles.pageTitle}>
-              <Text>{defaultLanguage ? "RECHNUNG" : "INVOICE"}</Text>
+              <Text style={styles.pageTitleText}>
+                {defaultLanguage ? "RECHNUNG" : "INVOICE"}
+              </Text>
+              <Image style={styles.logo} src={companyLogo} />
             </View>
 
             {/* Invoice Seller Buyer Data */}
@@ -109,7 +114,7 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
                 </View>
                 <Text style={styles.invoiceNumberDate}>
                   {defaultLanguage ? "Rechnungsdatum" : "Invoice Date"}:{" "}
-                  {moment(buyerData?.[0]?.currentDate).format("Do MMMM YYYY")}
+                  {moment(buyerData?.[0]?.date).format("Do MMMM YYYY")}
                 </Text>
               </View>
               {/* COntainer end */}

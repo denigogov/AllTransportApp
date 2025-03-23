@@ -2,7 +2,7 @@ import "../../../Styling/Pages/_editInfoCompany.scss";
 import useSWR, { mutate } from "swr";
 import { useAuth } from "../../../helpers/useAuth";
 import { CompanyInfoTypes } from "../../../types/companyInfoTypes";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { apiGeneralErrorHandle } from "../../../components/GlobalComponents/ErrorShow";
 import {
   confirmUpdatePrompt,
@@ -17,6 +17,7 @@ import { companyBankInput } from "./editCompanyInput";
 const EditBankCompany: React.FC = () => {
   const { token } = useAuth();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const setPopupOpen =
     useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
@@ -27,6 +28,10 @@ const EditBankCompany: React.FC = () => {
     isLoading: companyDataLoading,
   } = useSWR<CompanyInfoTypes[]>(["companyData", token]);
 
+  const selectedCompany =
+    companyData?.find((company) => company?.id === Number(id)) ??
+    companyData?.[0];
+
   const handleUpdate = async (query: Partial<CompanyInfoTypes>) => {
     try {
       const confirmUpdateMessage = await confirmUpdatePrompt(
@@ -36,11 +41,8 @@ const EditBankCompany: React.FC = () => {
       );
 
       if (confirmUpdateMessage.isConfirmed) {
-        await updateCompanyInfo(
-          companyData?.[0].id ?? null,
-          token ?? "",
-          query
-        );
+        await updateCompanyInfo(Number(id) ?? null, token ?? "", query);
+
         mutate(["companyData", token]);
         updateActionPrompt("Great!", "Your Updates has been saved.");
         setPopupOpen((e) => !e);
@@ -51,7 +53,7 @@ const EditBankCompany: React.FC = () => {
     }
   };
 
-  const formInputs = companyBankInput(companyData ?? []);
+  const formInputs = companyBankInput(selectedCompany);
 
   if (companyDataError)
     return <ErrorMinimalDisplay errorMessage={companyDataError?.message} />;

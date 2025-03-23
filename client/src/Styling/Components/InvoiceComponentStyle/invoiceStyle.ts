@@ -21,16 +21,28 @@ export const styles = StyleSheet.create({
   secoundPageHalf: { justifyContent: "space-between", flex: 1 },
 
   // pageTitle START
+
+  logo: {
+    width: "34mm",
+    height: "34mm",
+  },
+
   pageTitle: {
     backgroundColor: "#F6F5F4",
     height: 130,
     display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "center",
+    justifyContent: "space-between",
+
     padding: `${globalPadding}`,
+    flexDirection: "row",
+  },
+
+  pageTitleText: {
     fontSize: 26,
     letterSpacing: 15,
   },
+
   // pageTitle CONTAINER END
 
   // Invoice and Bill to container START
