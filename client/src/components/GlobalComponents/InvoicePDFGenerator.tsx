@@ -221,15 +221,13 @@ const InvoicePDFGenerator: React.FC<Partial<InvoicePDFGeneratorProps>> = ({
         buyerData?.[0]?.invoiceId ?? ""
       }_${language}.pdf`}
     >
-      {({ loading, error }) =>
-        loading ? (
-          "Loading document..."
-        ) : error ? (
-          `Error: ${error}`
-        ) : (
-          <button className="button__downloadPDF">Download as PDF</button>
-        )
-      }
+      {/*  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore */}
+      {({ loading, error }) => {
+        if (loading) return <span>Loading document...</span>;
+        if (error) return <span>Error: {error}</span>;
+        return <button className="button__downloadPDF">Download as PDF</button>;
+      }}
     </PDFDownloadLink>
   );
 };

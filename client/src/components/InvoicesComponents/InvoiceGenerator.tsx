@@ -30,18 +30,15 @@ import { styles } from "../../Styling/Components/InvoiceComponentStyle/invoiceSt
 Font.register({
   family: "customFontWeight400",
   src: customFontWeight400,
-  onError: (err: Error) => <p>{err.message}, error font</p>,
 });
 
 Font.register({
   family: "customFontWeight500",
   src: customFontWeight500,
-  onError: (err: Error) => <p>{err.message}, error font</p>,
 });
 Font.register({
   family: "customFontWeight700",
   src: customFontWeight700,
-  onError: (err: Error) => <p>{err.message}, error font</p>,
 });
 
 interface InvoiceGeneratorTypes {
@@ -260,15 +257,13 @@ const InvoiceGenerator: React.FC<InvoiceGeneratorTypes> = ({
       document={PDFGenerator}
       fileName={`Invoice #${generateInvoiceID}.pdf`}
     >
-      {({ loading, error }) =>
-        loading ? (
-          "Loading document..."
-        ) : error ? (
-          `Error: ${error}`
-        ) : (
-          <img src={downloadIcon} alt="downloadIcon" />
-        )
-      }
+      {/*  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore */}
+      {({ loading, error }) => {
+        if (loading) return <span>Loading document...</span>;
+        if (error) return <span>Error: {error}</span>;
+        return <img src={downloadIcon} alt="downloadIcon" />;
+      }}
     </PDFDownloadLink>
   );
 };

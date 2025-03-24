@@ -20,28 +20,23 @@ const ReportPDF: React.FC<ReportPDFProps> = () => {
   Font.register({
     family: "customFontWeight400",
     src: customFontWeight400,
-    onError: (err: Error) => <p>{err.message},hello error font</p>,
   });
 
   Font.register({
     family: "customFontWeight500",
     src: customFontWeight500,
-    onError: (err: Error) => <p>{err.message},hello error font</p>,
   });
   Font.register({
     family: "customFontWeight600",
     src: customFontWeight600,
-    onError: (err: Error) => <p>{err.message},hello error font</p>,
   });
   Font.register({
     family: "customFontWeight700",
     src: customFontWeight700,
-    onError: (err: Error) => <p>{err.message},hello error font</p>,
   });
   Font.register({
     family: "customFontTitleBold",
     src: customFontTitleBold,
-    onError: (err: Error) => <p>{err.message},hello error font</p>,
   });
 
   // return (
@@ -119,19 +114,14 @@ const ReportPDF: React.FC<ReportPDFProps> = () => {
   );
 
   return (
-    <PDFDownloadLink
-      document={PDFReportGenerator}
-      fileName={`ComapnyReport.pdf`}
-    >
-      {({ loading, error }) =>
-        loading ? (
-          ""
-        ) : error ? (
-          `Error: ${error}`
-        ) : (
-          <button className="btn">Download</button>
-        )
-      }
+    <PDFDownloadLink document={PDFReportGenerator} fileName="CompanyReport.pdf">
+      {/*  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore */}
+      {({ loading, error }) => {
+        if (loading) return <span>Loading document...</span>;
+        if (error) return <span>Error: {error}</span>;
+        return <button className="btn">Download</button>;
+      }}
     </PDFDownloadLink>
   );
 };

@@ -56,7 +56,6 @@ const ShowEmployees: React.FC<ShowEmployeesProps> = ({
                     ? `employees/edit/${user?.userId}`
                     : `edit/${user?.userId}`
                 }
-                unstable_viewTransition
               >
                 <p onClick={handleEditUser}>Manage</p>
               </Link>

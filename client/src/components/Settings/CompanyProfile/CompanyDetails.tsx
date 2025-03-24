@@ -31,7 +31,7 @@ const CompanyDetails: React.FC<CompanyDetailsProps> = ({
         <div className="card-header">
           <h2>{title}</h2>
 
-          <Link to={navigateTo} unstable_viewTransition>
+          <Link to={navigateTo}>
             <p onClick={() => setPopupOpen((x) => !x)}>Edit</p>
           </Link>
         </div>
