@@ -44,31 +44,32 @@ const verifyPassword = handleTryCatch(async (req, res) => {
       expiresIn: "5m",
     });
 
-    const message = {
-      from: {
-        email: process.env.EMAIL,
-      },
+    // const message = {
+    //   from: {
+    //     email: process.env.EMAIL,
+    //   },
 
-      personalizations: [
-        {
-          to: [
-            {
-              email: req.user.email,
-            },
-          ],
+    //   personalizations: [
+    //     {
+    //       to: [
+    //         {
+    //           email: req.user.email,
+    //         },
+    //       ],
 
-          dynamic_template_data: {
-            confirmCode: `${randomBytes}`,
-          },
-        },
-      ],
-      template_id: process.env.TEMPLATE_ID,
-    };
-    if (req.user.email !== "guest@nexigo.com") {
-      await sgMail.send(message).then(() => res.status(200).send({ token }));
-    } else {
-      res.status(200).send({ token });
-    }
+    //       dynamic_template_data: {
+    //         confirmCode: `${randomBytes}`,
+    //       },
+    //     },
+    //   ],
+    //   template_id: process.env.TEMPLATE_ID,
+    // };
+    // if (req.user.email !== "guest@nexigo.com") {
+    //   await sgMail.send(message).then(() => res.status(200).send({ token }));
+    // } else {
+    //   res.status(200).send({ token });
+    // }
+    res.status(200).send({ token });
   } else {
     throw CustomError.badRequestError("wrong password");
   }
