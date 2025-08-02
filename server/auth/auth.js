@@ -44,10 +44,7 @@ const verifyPassword = handleTryCatch(async (req, res) => {
       expiresIn: `${tokenExpireTime}m`,
     });
 
-    if (
-      req.user.email !== "guest@nexigo.com" ||
-      !process.env.TEMPORERY_ACCESS_CODE
-    ) {
+    if (!process.env.TEMPORERY_ACCESS_CODE) {
       await EmailService.sendTemplateEmail({
         templateId: 2,
         to: [{ email: req.user.email, name: "user" }],
